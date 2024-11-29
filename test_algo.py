@@ -46,7 +46,7 @@ def naive_string_matching(text, pattern):
             matches.append(i)
     return matches
 
-def super_test_run(test_cases=1000, text_length=10000000, pattern_length=100000):
+def super_test_run(test_cases=100, text_length=10000000, pattern_length=1000):
 
     text_c = ctypes.create_string_buffer(text_length + 1)
     pattern_c = ctypes.create_string_buffer(pattern_length + 1)
@@ -59,7 +59,7 @@ def super_test_run(test_cases=1000, text_length=10000000, pattern_length=100000)
     rk_mismatches = []
     BMtime = 0
     RKtime = 0
-    #Naivetime = 0
+    Naivetime = 0
     Progress = 0
     last_percentage = -1
 
@@ -82,7 +82,7 @@ def super_test_run(test_cases=1000, text_length=10000000, pattern_length=100000)
         RKtime += end_time - start_time
         rk_matches = [matches[i] for i in range(count.value)]
 
-        '''
+        
         start_time = time.time()
         naive_matches = naive_string_matching(text, pattern)
         end_time = time.time()
@@ -92,7 +92,7 @@ def super_test_run(test_cases=1000, text_length=10000000, pattern_length=100000)
             bm_mismatches.append((text, pattern, bm_matches, naive_matches))
         elif rk_matches != naive_matches:
             rk_mismatches.append((text, pattern, rk_matches, naive_matches))
-        '''
+        
         Progress += 1
         percentage = Progress*100/test_cases
         if (percentage % 10 == 0 and percentage != last_percentage):
@@ -101,7 +101,7 @@ def super_test_run(test_cases=1000, text_length=10000000, pattern_length=100000)
 
     print("Avg boyer_moore time: \n" + str(BMtime/test_cases))
     print("Avg rabin_karp time: \n" + str(RKtime/test_cases))
-    #print("Avg Naive time: \n" + str(Naivetime/test_cases))
+    print("Avg Naive time: \n" + str(Naivetime/test_cases))
     return bm_mismatches, rk_mismatches
 
 bm_mismatches, rk_mismatches = super_test_run()

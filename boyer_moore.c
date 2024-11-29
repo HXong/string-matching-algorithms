@@ -27,8 +27,8 @@ void computeSlideTable(const char P[], int m, int slide[]) {
             j--;
             k++;
         } else {
-            if(j != m){
-                if(slide[m-k] == m) {slide[m-k] = m-i+1;}
+            if(j != m-1){
+                if(slide[m-k] == m) {slide[m-k] = m-(i+2);}
                 k=0;
                 j=m-1;
             }
@@ -36,10 +36,13 @@ void computeSlideTable(const char P[], int m, int slide[]) {
 
         if (i == 0 && k != 0){
             base = m-k;
+            if(k==m-1){
+                base = m-1;
+            }
         }
    }
 
-   if(base != 0){
+   if(base > 1){
         for(int i = 1; i<m; i++){
             if(slide[i] == m) slide[i] = base;
         }
